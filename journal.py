@@ -1,47 +1,43 @@
 #!/usr/bin/env python3
 
-# Import required modules
 import sys
 
-# Define purpose
-'''
-  A simple app to practice Python with. It will let me store notes and
-  eventually help me retrieve/search those notes.
-'''
+class JournalApp:
+    def __init__(self):
+        self.user_input = ""
 
-# Define globals
-user_input = ""
+    def say_hello(self):
+        print("Hello and welcome to your journal app.")
+        print("To store a new entry, just type it at the prompt below.")
+        print("To execute a command, start your input with a period.")
 
-# Define functions
-def say_hello():
-    print("Hello and welcome to your journal app.")
-    print("To store a new entry just type it at the prompt below.")
-    print("To execute a command, start your input with a period.")
+    def get_input(self):
+        self.user_input = input("[Prompt] ")
+        return self.user_input
 
-def get_input():
-    user_input = input("[Prompt] ")
-    return user_input
+    def execute_command(self, command):
+        if command == ".exit":
+            exit_conf = input("You want to exit, is that correct? Exit? [y]/n : ")
+            if exit_conf.lower() == "y":
+                sys.exit()
+        else:
+            print("Unknown command. Type '.exit' to exit.")
 
-def evaluate_input(some_input):
-    if some_input[0] == ".":
-        # do the command things
-        print("You tried to use a command.")
-    else:
-        # do the regular input things
-        print("You tried to add input.")
+    def add_input(self, user_input):
+        print(f"Adding entry: {user_input}")
 
-    if some_input == ".exit":
-        print("You want to exit, is that correct?")
-        exit_conf = input("Exit? [y]/n : ")
-        if exit_conf.lower() == "y":
-            sys.exit()
+    def evaluate_input(self, user_input):
+        if user_input.startswith("."):
+            self.execute_command(user_input)
+        else:
+            self.add_input(user_input)
 
-def loop_prompt():
-    while True:
-        evaluate_input(get_input())
+    def loop_prompt(self):
+        while True:
+            user_input = self.get_input()
+            self.evaluate_input(user_input)
 
-# Main execution
 if __name__ == "__main__":
-    say_hello()
-    loop_prompt()
-    
+    journal_app = JournalApp()
+    journal_app.say_hello()
+    journal_app.loop_prompt()
