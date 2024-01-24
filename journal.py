@@ -25,9 +25,11 @@ class JournalApp:
     def execute_command(self, command):
         if command == ".exit":
             exit_conf = input("You want to exit, is that correct? Exit? [y]/n : ")
-            if exit_conf.lower() == "y":
+            if exit_conf.lower() == "y" or exit_conf == "":
                 self.save_entries()
                 sys.exit()
+        elif command == ".?":
+            self.show_commands()
         else:
             print("Unknown command. Type '.exit' to exit.")
 
